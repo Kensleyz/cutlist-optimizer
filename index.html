@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CutList Optimizer — free sheet cutting layout tool</title>
+  <meta name="description" content="Free, open-source cutting list optimizer. Pack parts onto stock sheets, minimize waste, get workshop-ready cutting diagrams. Runs 100% in your browser.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+</head>
+<body>
+
+<header>
+  <h1>CutList<span>Optimizer</span></h1>
+  <span class="rev">REV 1.0 · SHELF-FFD · RUNS IN-BROWSER · NO SERVER</span>
+</header>
+
+<main>
+  <!-- ================= INPUT COLUMN ================= -->
+  <div id="inputCol">
+    <section class="panel">
+      <div class="panel-head"><h2>Stock sheet</h2></div>
+      <div class="panel-body">
+        <div class="field-grid">
+          <div class="field">
+            <label for="sheetW">Width (mm)</label>
+            <input type="number" id="sheetW" value="2440" min="1">
+          </div>
+          <div class="field">
+            <label for="sheetH">Height (mm)</label>
+            <input type="number" id="sheetH" value="1220" min="1">
+          </div>
+          <div class="field">
+            <label for="kerf">Saw kerf (mm)</label>
+            <input type="number" id="kerf" value="3" min="0" step="0.5">
+          </div>
+          <div class="field">
+            <label for="price">Price / sheet (R)</label>
+            <input type="number" id="price" value="850" min="0" step="0.01">
+          </div>
+          <div class="field full checkbox-row">
+            <input type="checkbox" id="rotation" checked>
+            <label for="rotation" style="text-transform:none;letter-spacing:0;font-family:var(--sans);font-size:0.85rem;color:var(--ink)">Allow 90° rotation (ignore grain direction)</label>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Parts to cut</h2>
+        <button type="button" class="btn" id="loadDemo">Demo</button>
+      </div>
+      <div class="panel-body">
+        <table class="pieces">
+          <thead>
+            <tr><th>Label</th><th>W&nbsp;mm</th><th>H&nbsp;mm</th><th>Qty</th><th></th></tr>
+          </thead>
+          <tbody id="pieceRows"></tbody>
+        </table>
+        <button type="button" class="btn btn-ghost" id="addRow">+ Add part</button>
+        <button type="button" class="btn btn-primary btn-run" id="run">Optimize cutting plan</button>
+      </div>
+    </section>
+  </div>
+
+  <!-- ================= RESULTS COLUMN ================= -->
+  <div id="resultsCol">
+    <div id="warnHost"></div>
+
+    <div id="emptyState" class="empty">
+      Enter your parts and press <strong>Optimize</strong> —<br>
+      or load the <strong>Demo</strong> to see a kitchen-cabinet cutting plan.
+    </div>
+
+    <div id="results" hidden>
+      <div class="toolbar">
+        <button type="button" class="btn" id="exportCsv">↓ Export CSV</button>
+        <button type="button" class="btn" id="printBtn">⎙ Print workshop sheet</button>
+      </div>
+
+      <div class="stats" id="statsStrip"></div>
+
+      <section class="panel" id="chartsPanel" style="margin-top:24px">
+        <div class="panel-head"><h2>Material stats</h2></div>
+        <div class="panel-body charts">
+          <div class="chart-box"><canvas id="donutChart" aria-label="Used vs waste material"></canvas></div>
+          <div class="chart-box"><canvas id="barChart" aria-label="Utilization per sheet"></canvas></div>
+        </div>
+      </section>
+
+      <div id="sheetsHost"></div>
+    </div>
+  </div>
+</main>
+
+<script src="js/optimizer.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
