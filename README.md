@@ -8,10 +8,13 @@ Free, open-source cutting list optimizer that runs **100% in the browser** — n
 
 Enter your stock sheet size and the parts you need to cut. The tool packs them onto as few sheets as possible and gives you:
 
-- **Stats dashboard** — sheets required, material cost (ZAR), utilization %, waste % (Chart.js doughnut + per-sheet bar chart)
-- **Cutting diagrams** — technical-drawing style canvas per sheet with a 100 mm grid, dimension lines, and part labels
+- **Animated nesting** — watch parts land on the sheet one by one as the plan is computed
+- **Stats dashboard** — count-up stat cards (sheets, cost in ZAR, utilization %, waste %) plus Chart.js doughnut + per-sheet utilization bars
+- **Interactive cutting diagrams** — canvas technical drawings with a 100 mm grid and dimension lines; hover a part for a live tooltip, hover a cut-table row to highlight it on the sheet (and vice versa)
+- **Color-coded parts** — every part label gets a stable color across the input list, diagrams, and cut tables
 - **Cut table** — X/Y coordinates, sizes, and rotation flags per part
-- **CSV export** and a **print-friendly workshop sheet**
+- **CSV export**, **print-friendly workshop sheet**, and `Ctrl+Enter` to optimize
+- Fully responsive, keyboard-accessible, respects reduced-motion preferences
 
 ## How it works
 
@@ -25,9 +28,9 @@ Stack: vanilla JS + HTML + CSS, [Chart.js](https://www.chartjs.org/) via CDN. No
 ```
 cutlist-optimizer/
 ├── index.html
-├── css/style.css
-├── js/optimizer.js   ← pure algorithm, no DOM (reusable in Node)
-└── js/app.js         ← UI, charts, canvas drawings, CSV export
+├── style.css
+├── optimizer.js      ← pure algorithm, no DOM (reusable in Node)
+└── app.js            ← UI, charts, canvas drawings, CSV export
 ```
 
 ## Deploy to GitHub Pages (free hosting)
