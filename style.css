@@ -431,3 +431,8 @@ canvas.sheet { display: block; max-width: 100%; height: auto; cursor: crosshair;
   .panel, .stat { box-shadow: none; border-color: #999; background: #fff; }
   .stat .v { color: #000 !important; }
 }
+
+/* DigiStep link + hidden-state fix */
+.topbar .gh.digi { color: var(--blue); border-color: var(--blue-dim); }
+.topbar .gh.digi:hover { border-color: var(--blue); }
+.empty[hidden] { display: none !important; }
